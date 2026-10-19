@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: meterapp
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true
+      - key: PYTHONPATH
+        value: /app

@@ -1,0 +1,17 @@
+version: "3.8"
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:10000"
+    environment:
+      - PORT=10000
+      - SECRET_KEY=dev-local-secret-change-me
+      - PYTHONPATH=/app
+    volumes:
+      - meter_data:/app/uploads
+    restart: unless-stopped
+volumes:
+  meter_data:
