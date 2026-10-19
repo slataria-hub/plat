@@ -131,7 +131,7 @@ export const api = {
     request(`/properties/${propertyId}/expected-payment?months=${months}`),
   tariffHistory: (propertyId: number) => request(`/properties/${propertyId}/tariff-history`),
   listNotes: (propertyId: number, year?: number) =>
-    request(`/properties/${propertyId}/notes${year ? `?year=${year}` : ''}`),
+    request<any[]>(`/properties/${propertyId}/notes${year ? `?year=${year}` : ''}`),
   saveNote: (propertyId: number, data: { year: number; month: number; text: string }) =>
     request(`/properties/${propertyId}/notes`, { method: 'POST', body: JSON.stringify(data) }),
   exportPdfUrl: (propertyId: number, year?: number, month?: number) => {
@@ -143,17 +143,17 @@ export const api = {
   },
   dualTariff: (propertyId: number, year: number) =>
     request(`/properties/${propertyId}/dual-tariff-compare?year=${year}`),
-  listAccounts: (propertyId: number) => request(`/properties/${propertyId}/accounts`),
+  listAccounts: (propertyId: number) => request<any[]>(`/properties/${propertyId}/accounts`),
   createAccount: (propertyId: number, data: object) =>
     request(`/properties/${propertyId}/accounts`, { method: 'POST', body: JSON.stringify(data) }),
   deleteAccount: (propertyId: number, id: number) =>
     request(`/properties/${propertyId}/accounts/${id}`, { method: 'DELETE' }),
   portals: (propertyId: number) => request(`/properties/${propertyId}/portals`),
-  listShares: (propertyId: number) => request(`/properties/${propertyId}/shares`),
+  listShares: (propertyId: number) => request<any[]>(`/properties/${propertyId}/shares`),
   createShare: (propertyId: number, guest_email: string) =>
     request(`/properties/${propertyId}/shares`, { method: 'POST', body: JSON.stringify({ guest_email }) }),
   acceptShare: (token: string) => request(`/shares/accept/${token}`, { method: 'POST' }),
-  sharedWithMe: () => request('/shared-with-me'),
+  sharedWithMe: () => request<any[]>('/shared-with-me'),
   widget: (propertyId?: number) =>
     request(`/widget${propertyId ? `?property_id=${propertyId}` : ''}`),
   quickReadings: (propertyId: number, data: { reading_date: string; items: { meter_id: number; value_t1: number; value_t2?: number }[] }) =>
